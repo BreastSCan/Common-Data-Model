@@ -1,7 +1,7 @@
 {
-  "created_dt": "20260427115735_cdmb",
+  "created_dt": "20260519184305_cdmb",
   "cdmb_version": "2.0.0",
-  "uuid": "ac669e80-bbde-4f3d-9622-eab14aad3f3c",
+  "uuid": "9fbe85f9-33b3-411d-ad63-b1f1cc022c0d",
   "metadata": {
     "project": "BreastScan",
     "funder": "BreastSCan is co-funded under the EU4Health Programme 2021-2027 under grant agreement no. 101219312. Funded by the European Union.",
@@ -9,7 +9,7 @@
     "work_package": "WP4",
     "use_case": "breast_screening_cancer_prediction",
     "document": "Common Data Model",
-    "version_sem": "0.0.6",
+    "version_sem": "0.0.7",
     "authors": [
       {
         "name": "HULAFE",
@@ -32,19 +32,19 @@
       "image analysis"
     ],
     "description": "Study of breast cancer diagnosed during routine mammogram screenings including interval cancer. ",
-    "notes": "Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Health and Digital Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. \n0.0.2 Minor typos in some variable names have been corrected. Catalogs have been added and minor errors in the 'transformations_from_origin' column have been corrected.\n0.0.3 Added Description, Authors, and several variables added in several Entities. \n0.0.4 Added logic 'women_id > studio_id > serie_id' to 'diagnosis_image_ent'. Deleted variables with laterality notion as it is included in the 'serie_id'. Updated NUTS catalogue to delete spaces within variable labels. Corrected variables {'image_type_cd', 'ct_cd', 'cn_cd'} to format 'Integer', as indicated by their catalogue (i.e., data dictionary). \n0.0.5 Updated 'diagnosis_image_ent' to 'dcm_studies_metadata'. Added 'manufacturer_id' to 'dcm_studies_metadata'. ",
+    "notes": "Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Health and Digital Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. \n0.0.2 Minor typos in some variable names have been corrected. Catalogs have been added and minor errors in the 'transformations_from_origin' column have been corrected.\n0.0.3 Added Description, Authors, and several variables added in several Entities. \n0.0.4 Added logic 'women_id > studio_id > serie_id' to 'diagnosis_image_ent'. Deleted variables with laterality notion as it is included in the 'serie_id'. Updated NUTS catalogue to delete spaces within variable labels. Corrected variables {'image_type_cd', 'ct_cd', 'cn_cd'} to format 'Integer', as indicated by their catalogue (i.e., data dictionary). \n0.0.5 Updated 'diagnosis_image_ent' to 'dcm_studies_metadata'. Added 'manufacturer_id' to 'dcm_studies_metadata'. \n0.0.6 changed 'diagnosis_image_ent' to 'dicom_series_ent'\n0.0.7 Corrections in model from feedback. \n   Updated cohort definition\n   Fixed some mispelled variable names\n   Added DBT and CEM image type to catalog",
     "spatial_coverage": "Europe",
     "license": "CC BY 4.0 https://creativecommons.org/licenses/by/4.0/"
   },
   "cohort": {
     "name": "breast_cancer_screening",
-    "description": "Women aged between 45 and 69 years old undergoing population breast cancer screening. Women attending every two years the corresponding Screening Prevention Program Units of their region or country; excluding those women with breast interventions (i.e., implants, breast reduction), cases without quality images, and women with metal implants.  ",
-    "inclusion_criteria": "Women aged between 45 and 69 years old undergoing population breast cancer screening. Women attending every two years the corresponding Screening Prevention Program Units of their region or country",
-    "exclusion_criteria": "Women with breast interventions (i.e., implants, breast reduction), cases without quality images, and women with metal implants.  ",
-    "beginning_study_period": "2025-01-01",
+    "description": "Women undergoing population breast cancer screening with at least two screening sessions with their corresponding mammograms or other type of breast image. Women attending every two (commonly) years the corresponding Screening Prevention Program Units of their region or country; excluding women with metal implants.  ",
+    "inclusion_criteria": "Women undergoing population breast cancer screening with at least two screening sessions with their corresponding mammograms or other type of breast image.",
+    "exclusion_criteria": "Women with metal implants.  ",
+    "beginning_study_period": "2000-01-01",
     "end_study_period": "2027-12-31",
     "cohort_definition_inclusion": null,
-    "cohort_definition_exclusion": null
+    "cohort_definition_exclusion": {}
   },
   "entities": [
     {
@@ -809,7 +809,7 @@
           "catalog": null
         },
         {
-          "label": "studio_id",
+          "label": "study_id",
           "description": "PseudoIdentifier of the diagnosis image studio",
           "standard_classification": "",
           "format": "String",
@@ -825,7 +825,7 @@
           "catalog": null
         },
         {
-          "label": "serie_id",
+          "label": "series_id",
           "description": "PseudoIdentifier of the image series",
           "standard_classification": "",
           "format": "String",
@@ -866,7 +866,7 @@
           "requirement_level": "Required",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = mamogram (MMG), '1' = magnetic resonance imaging (MRI), '2' = ultrasounds (ECO), '3' = diagnosis/staging images (DSB)}",
+          "transformations_from_origin": "{'0' = mamogram (MMG), '1' = magnetic resonance imaging (MRI), '2' = ultrasounds (ECO), '3' = breast tomosynthesis (DBT), '4' = contrast enhanced mammography (CEM), '5' = diagnosis/staging images (DSB)}",
           "possible_data_source": "Diagnosis image database; Radiology",
           "observations_comments": "Mamograms can be standard or 3D. DSB can correspond to any other imaging technice like CT scans, bone scans, and PET scans used for diagnosis or staging in breast cancer. The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
@@ -1023,7 +1023,7 @@
         },
         {
           "label": "lesion_size_nm",
-          "description": "Size of the larger diametre of the lesion detected in centimetres",
+          "description": "Size of the larger diameter of the lesion detected in centimetres",
           "standard_classification": "",
           "format": "Double",
           "type": "Numerical",
@@ -1169,7 +1169,7 @@
         },
         {
           "label": "exploration_description_st",
-          "description": "Narrative description of the exploration results for the LEFT breast",
+          "description": "Narrative description of the exploration results for the breast",
           "standard_classification": "",
           "format": "String",
           "type": "Categorical",
@@ -1186,11 +1186,6 @@
       ],
       "rules": [],
       "synthetic_configuration": {
-        "serie_id": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
         "exploration_result_cd": {
           "dist": "random_default",
           "params": {},
@@ -1217,6 +1212,16 @@
           "null_percentage": 0
         },
         "manufacturer_id": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "study_id": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "series_id": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
