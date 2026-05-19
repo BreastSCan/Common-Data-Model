@@ -10,7 +10,7 @@ The Common Data Model has been jointly designed by the Institute for Health Scie
 This CDM covers the needed entities for:    
 - women
 - images related data
-- pathologinal specimens
+- pathological specimens
 - surgical treatment
 - neoadjuvant treatment
 - follow up
