@@ -10,8 +10,8 @@ erDiagram
     Integer menopause_cd
     Integer menopause_age_nm
     Integer menopause_cause_cd
+    Integer personal_cancer_history_cd
     Integer breast_cancer_familial_atc_cd
-    String breast_cancer_family_history_st
     Integer ovarian_cancer_familial_atc_cd
     Integer surgical_atc_left_breast_cd
     Integer surgical_atc_right_breast_cd
@@ -44,14 +44,15 @@ erDiagram
     String study_id
     String series_id
     Date image_test_dt
+    Integer image_laterality_cd
     Integer image_type_cd
+    Integer image_reason_cd
     String healthcare_centre_cd
     String manufacturer_id
     Integer breast_density_cd
     Integer birads_cd
     Integer benign_lesion_cd
     Integer malignant_lesion_cd
-    Integer lesion_laterality_cd
     Integer lesion_location_cd
     Double lesion_size_nm
     Integer lesion_mass_shape_cd
@@ -59,7 +60,7 @@ erDiagram
     Integer lesion_associated_features_cd
     Integer ct_cd
     Integer cn_cd
-    Integer n_explorations_nm
+    Integer n_lesions_nm
     Integer exploration_result_cd
     String exploration_description_st
   }

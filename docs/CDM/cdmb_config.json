@@ -1,7 +1,7 @@
 {
-  "created_dt": "20260519184305_cdmb",
+  "created_dt": "20260520213721_cdmb",
   "cdmb_version": "2.0.0",
-  "uuid": "9fbe85f9-33b3-411d-ad63-b1f1cc022c0d",
+  "uuid": "95066894-204a-4ed5-8024-1fbb98c78f20",
   "metadata": {
     "project": "BreastScan",
     "funder": "BreastSCan is co-funded under the EU4Health Programme 2021-2027 under grant agreement no. 101219312. Funded by the European Union.",
@@ -32,7 +32,7 @@
       "image analysis"
     ],
     "description": "Study of breast cancer diagnosed during routine mammogram screenings including interval cancer. ",
-    "notes": "Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Health and Digital Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. \n0.0.2 Minor typos in some variable names have been corrected. Catalogs have been added and minor errors in the 'transformations_from_origin' column have been corrected.\n0.0.3 Added Description, Authors, and several variables added in several Entities. \n0.0.4 Added logic 'women_id > studio_id > serie_id' to 'diagnosis_image_ent'. Deleted variables with laterality notion as it is included in the 'serie_id'. Updated NUTS catalogue to delete spaces within variable labels. Corrected variables {'image_type_cd', 'ct_cd', 'cn_cd'} to format 'Integer', as indicated by their catalogue (i.e., data dictionary). \n0.0.5 Updated 'diagnosis_image_ent' to 'dcm_studies_metadata'. Added 'manufacturer_id' to 'dcm_studies_metadata'. \n0.0.6 changed 'diagnosis_image_ent' to 'dicom_series_ent'\n0.0.7 Corrections in model from feedback. \n   Updated cohort definition\n   Fixed some mispelled variable names\n   Added DBT and CEM image type to catalog",
+    "notes": "Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Health and Digital Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. \n0.0.2 Minor typos in some variable names have been corrected. Catalogs have been added and minor errors in the 'transformations_from_origin' column have been corrected.\n0.0.3 Added Description, Authors, and several variables added in several Entities. \n0.0.4 Added logic 'women_id > studio_id > serie_id' to 'diagnosis_image_ent'. Deleted variables with laterality notion as it is included in the 'serie_id'. Updated NUTS catalogue to delete spaces within variable labels. Corrected variables {'image_type_cd', 'ct_cd', 'cn_cd'} to format 'Integer', as indicated by their catalogue (i.e., data dictionary). \n0.0.5 Updated 'diagnosis_image_ent' to 'dcm_studies_metadata'. Added 'manufacturer_id' to 'dcm_studies_metadata'. \n0.0.6 changed 'diagnosis_image_ent' to 'dicom_series_ent'\n0.0.7 Corrections in model from feedback. \n   Updated cohort definition\n   Fixed some mispelled variable names\n   Added DBT and CEM image type to catalog\n   manufacturer_id as coded field based on catalog\n   lesion_laterality --> image_laterality\n   n_examinations_nm --> n_lesion_nm\n   added personal_cancer_history_cd\n   added image / contact reason (image_reason_cd)",
     "spatial_coverage": "Europe",
     "license": "CC BY 4.0 https://creativecommons.org/licenses/by/4.0/"
   },
@@ -44,7 +44,7 @@
     "beginning_study_period": "2000-01-01",
     "end_study_period": "2027-12-31",
     "cohort_definition_inclusion": null,
-    "cohort_definition_exclusion": {}
+    "cohort_definition_exclusion": null
   },
   "entities": [
     {
@@ -90,7 +90,7 @@
           "format": "Integer",
           "type": "Numerical",
           "units": "years",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -170,7 +170,7 @@
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": true,
           "transformations_from_origin": "{'0' = unknown, '1' = premenopausic, '2' = perimenopausic, '3' = postmenopausic}",
@@ -218,6 +218,25 @@
           }
         },
         {
+          "label": "personal_cancer_history_cd",
+          "description": "Previous tumours diagnosed",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Optional",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{0=none,\n1=breast,\n2=ovarian,\n3=pancreatic,\n4=uterine,\n9=others}",
+          "possible_data_source": "Electronic health records (EHR)",
+          "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
+          "examples": "",
+          "catalog": {
+            "filename": "personal_cancer_history_cd_catalog.csv",
+            "column_name": "code"
+          }
+        },
+        {
           "label": "breast_cancer_familial_atc_cd",
           "description": "Family history of breast cancer, specially in first degree relative like a mother,sister or daugther",
           "standard_classification": "",
@@ -235,22 +254,6 @@
             "filename": "breast_cancer_familial_atc_cd_catalog.csv",
             "column_name": "code"
           }
-        },
-        {
-          "label": "breast_cancer_family_history_st",
-          "description": "Family history of breast cancer, specially in first degree relative like a mother,sister or daughter (i.e., Ontario Family History Assessment Tool)",
-          "standard_classification": "",
-          "format": "String",
-          "type": "Categorical",
-          "units": "",
-          "requirement_level": "Optional",
-          "characteristic": "Observed",
-          "catalog_bl": false,
-          "transformations_from_origin": "",
-          "possible_data_source": "Electronic health records (EHR)",
-          "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
-          "examples": "",
-          "catalog": null
         },
         {
           "label": "ovarian_cancer_familial_atc_cd",
@@ -396,7 +399,7 @@
           "format": "Integer",
           "type": "Numerical",
           "units": "centimetres",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -412,7 +415,7 @@
           "format": "Double",
           "type": "Numerical",
           "units": "kilograms",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -428,7 +431,7 @@
           "format": "Boolean",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -444,7 +447,7 @@
           "format": "Boolean",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -460,7 +463,7 @@
           "format": "Boolean",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -476,7 +479,7 @@
           "format": "Boolean",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -766,11 +769,6 @@
           "params": {},
           "null_percentage": 0
         },
-        "breast_cancer_family_history_st": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
         "genetic_testing_brca2_cd": {
           "dist": "random_default",
           "params": {},
@@ -782,6 +780,11 @@
           "null_percentage": 0
         },
         "genetic_testing_check2_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "personal_cancer_history_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -857,6 +860,25 @@
           "catalog": null
         },
         {
+          "label": "image_laterality_cd",
+          "description": "Laterality of the image. To which breast corresponds the image",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Required",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{1 = left, 2 = right, 3 = don't apply}",
+          "possible_data_source": "Radiology report; Image feature extraction",
+          "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
+          "examples": "",
+          "catalog": {
+            "filename": "image_laterality_cd_catalog.csv",
+            "column_name": "code"
+          }
+        },
+        {
           "label": "image_type_cd",
           "description": "Common types of diagnostic image test including mammograms (standard and 3D), breast ultrasound, MRI",
           "standard_classification": "",
@@ -866,12 +888,31 @@
           "requirement_level": "Required",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = mamogram (MMG), '1' = magnetic resonance imaging (MRI), '2' = ultrasounds (ECO), '3' = breast tomosynthesis (DBT), '4' = contrast enhanced mammography (CEM), '5' = diagnosis/staging images (DSB)}",
+          "transformations_from_origin": "{'1' = mamogram (MMG), '2' = magnetic resonance imaging (MRI), '3' = ultrasounds (ECO), '4' = breast tomosynthesis (DBT), '5' = contrast enhanced mammography (CEM), '6' = diagnosis/staging images (DSB)}",
           "possible_data_source": "Diagnosis image database; Radiology",
           "observations_comments": "Mamograms can be standard or 3D. DSB can correspond to any other imaging technice like CT scans, bone scans, and PET scans used for diagnosis or staging in breast cancer. The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
           "catalog": {
             "filename": "image_type_cd_catalog.csv",
+            "column_name": "code"
+          }
+        },
+        {
+          "label": "image_reason_cd",
+          "description": "Reason for contact",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Required",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{1 = Screening,\n2 = Recall for screening,\n3 = Clinical/referred with symptoms}",
+          "possible_data_source": "Electronic Health Record  / healthcare center",
+          "observations_comments": "",
+          "examples": "",
+          "catalog": {
+            "filename": "image_reason.csv",
             "column_name": "code"
           }
         },
@@ -893,19 +934,22 @@
         },
         {
           "label": "manufacturer_id",
-          "description": "PseudoIdentifier of the diagnosis imaging device manufacturer",
+          "description": "Coded name of the diagnosis imaging device manufacturer",
           "standard_classification": "",
           "format": "String",
           "type": "Categorical",
           "units": "",
           "requirement_level": "Required",
           "characteristic": "Observed",
-          "catalog_bl": false,
-          "transformations_from_origin": "Apply encription to generate a consistent pseudonym across linked data sources",
+          "catalog_bl": true,
+          "transformations_from_origin": "{SIEMENS=Siemens,\nGE = General Electric,\nFUJI = Fujifilm,\nAGFA = AGFA,\nPHILLIPS = Phillips,\nUNK = unknown}",
           "possible_data_source": "Diagnosis image metadata",
           "observations_comments": "",
           "examples": "",
-          "catalog": null
+          "catalog": {
+            "filename": "manufacturer_id_catalog.csv",
+            "column_name": "code"
+          }
         },
         {
           "label": "breast_density_cd",
@@ -980,25 +1024,6 @@
           "examples": "",
           "catalog": {
             "filename": "malignant_lesion_cd_catalog.csv",
-            "column_name": "code"
-          }
-        },
-        {
-          "label": "lesion_laterality_cd",
-          "description": "Location of the lesion according to the breast",
-          "standard_classification": "",
-          "format": "Integer",
-          "type": "Categorical",
-          "units": "",
-          "requirement_level": "Required",
-          "characteristic": "Observed",
-          "catalog_bl": true,
-          "transformations_from_origin": "{'0' = none, '1' = left, '2' = right, '3' = bilateral}",
-          "possible_data_source": "Radiology report; Image feature extraction",
-          "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
-          "examples": "",
-          "catalog": {
-            "filename": "lesion_laterality_cd_catalog.csv",
             "column_name": "code"
           }
         },
@@ -1133,8 +1158,8 @@
           }
         },
         {
-          "label": "n_explorations_nm",
-          "description": "Number of available explorations",
+          "label": "n_lesions_nm",
+          "description": "Number of lesions found. 0 if there is not found lesion in the image ",
           "standard_classification": "",
           "format": "Integer",
           "type": "Categorical",
@@ -1222,6 +1247,21 @@
           "null_percentage": 0
         },
         "series_id": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "image_laterality_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "n_lesions_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "image_reason_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
