@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below:"
 title: "BreastScan"
-version: "0.0.7"
-date-released: "2026-05-20"
+version: "0.0.8"
+date-released: "2026-07-22"
 url: "https://www.eibir.org/projects/breastscan/"
 license: "CC BY 4.0 https://creativecommons.org/licenses/by/4.0/"
 authors:

@@ -1,7 +1,7 @@
 {
-  "created_dt": "20260520213721_cdmb",
+  "created_dt": "20260722081912_cdmb",
   "cdmb_version": "2.0.0",
-  "uuid": "95066894-204a-4ed5-8024-1fbb98c78f20",
+  "uuid": "03a50929-161a-497f-8792-0a5b8c5d4725",
   "metadata": {
     "project": "BreastScan",
     "funder": "BreastSCan is co-funded under the EU4Health Programme 2021-2027 under grant agreement no. 101219312. Funded by the European Union.",
@@ -9,7 +9,7 @@
     "work_package": "WP4",
     "use_case": "breast_screening_cancer_prediction",
     "document": "Common Data Model",
-    "version_sem": "0.0.7",
+    "version_sem": "0.0.8",
     "authors": [
       {
         "name": "HULAFE",
@@ -38,11 +38,11 @@
   },
   "cohort": {
     "name": "breast_cancer_screening",
-    "description": "Women undergoing population breast cancer screening with at least two screening sessions with their corresponding mammograms or other type of breast image. Women attending every two (commonly) years the corresponding Screening Prevention Program Units of their region or country; excluding women with metal implants.  ",
-    "inclusion_criteria": "Women undergoing population breast cancer screening with at least two screening sessions with their corresponding mammograms or other type of breast image.",
-    "exclusion_criteria": "Women with metal implants.  ",
+    "description": "Women undergoing breast cancer radiological studies, either in organized populational or high risk screening programs, spontaneous screening or with diagnostic purpose, including clinical data and images (mammograms, DBT, Ultrasound or MRI) in time series, to carry out machine learning and AI model training oriented to understand and improve breast cancer screening programs and breast cancer detection.\n",
+    "inclusion_criteria": "Women over 18 years old undergoing spontaneous or organized breast cancer screening or any breast imaging modality with diagnostic purpose.",
+    "exclusion_criteria": "",
     "beginning_study_period": "2000-01-01",
-    "end_study_period": "2027-12-31",
+    "end_study_period": "2029-08-31",
     "cohort_definition_inclusion": null,
     "cohort_definition_exclusion": null
   },
@@ -53,7 +53,7 @@
       "variables": [
         {
           "label": "woman_id",
-          "description": "Pseudoidentifier of each women screened",
+          "description": "Pseudoidentifier of each women included in the cohort",
           "standard_classification": "",
           "format": "String",
           "type": "Categorical",
@@ -138,7 +138,7 @@
           "format": "Boolean",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -218,25 +218,6 @@
           }
         },
         {
-          "label": "personal_cancer_history_cd",
-          "description": "Previous tumours diagnosed",
-          "standard_classification": "",
-          "format": "Integer",
-          "type": "Categorical",
-          "units": "",
-          "requirement_level": "Optional",
-          "characteristic": "Observed",
-          "catalog_bl": true,
-          "transformations_from_origin": "{0=none,\n1=breast,\n2=ovarian,\n3=pancreatic,\n4=uterine,\n9=others}",
-          "possible_data_source": "Electronic health records (EHR)",
-          "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
-          "examples": "",
-          "catalog": {
-            "filename": "personal_cancer_history_cd_catalog.csv",
-            "column_name": "code"
-          }
-        },
-        {
           "label": "breast_cancer_familial_atc_cd",
           "description": "Family history of breast cancer, specially in first degree relative like a mother,sister or daugther",
           "standard_classification": "",
@@ -271,6 +252,63 @@
           "examples": "",
           "catalog": {
             "filename": "ovarian_cancer_familial_atc_cd_catalog.csv",
+            "column_name": "code"
+          }
+        },
+        {
+          "label": "personal_cancer_history_cd",
+          "description": "Previous tumours diagnosed",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Recommended",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{0=none,\n1=breast,\n2=ovarian,\n3=pancreatic,\n4=uterine,\n9=others}",
+          "possible_data_source": "Electronic health records (EHR)",
+          "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
+          "examples": "",
+          "catalog": {
+            "filename": "personal_cancer_history_cd_catalog.csv",
+            "column_name": "code"
+          }
+        },
+        {
+          "label": "previous_breast_cancer_left",
+          "description": "Previous breast cancer diagnosed in the left breast",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Recommended",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{'0' = none, '1' = DCIS, '2' = invasive or DCIS+invasive}\n",
+          "possible_data_source": "EHR",
+          "observations_comments": "",
+          "examples": "",
+          "catalog": {
+            "filename": "previous_breast_cancer.csv",
+            "column_name": "code"
+          }
+        },
+        {
+          "label": "previous_breast_cancer_right",
+          "description": "Previous breast cancer diagnosed in the right breast",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Recommended",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{'0' = none, '1' = DCIS, '2' = invasive or DCIS+invasive}\n",
+          "possible_data_source": "EHR",
+          "observations_comments": "",
+          "examples": "",
+          "catalog": {
+            "filename": "previous_breast_cancer.csv",
             "column_name": "code"
           }
         },
@@ -788,6 +826,16 @@
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
+        },
+        "previous_breast_cancer_left": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "previous_breast_cancer_right": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
         }
       }
     },
@@ -797,7 +845,7 @@
       "variables": [
         {
           "label": "woman_id",
-          "description": "PseudoIdentifier of the woman undergoing breast cancer screening",
+          "description": "PseudoIdentifier of the woman to whom the study belongs",
           "standard_classification": "",
           "format": "String",
           "type": "Categorical",
@@ -880,7 +928,7 @@
         },
         {
           "label": "image_type_cd",
-          "description": "Common types of diagnostic image test including mammograms (standard and 3D), breast ultrasound, MRI",
+          "description": "Common types of diagnostic image test including mammograms (2D and/or DBT), breast ultrasound, MRI",
           "standard_classification": "",
           "format": "Integer",
           "type": "Categorical",
@@ -942,7 +990,7 @@
           "requirement_level": "Required",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{SIEMENS=Siemens,\nGE = General Electric,\nFUJI = Fujifilm,\nAGFA = AGFA,\nPHILLIPS = Phillips,\nUNK = unknown}",
+          "transformations_from_origin": "{\nAGFA = AGFA,\nBAYER = Bayer,\nBRACCO = Bracco,\nCANON = Canon Medical,\nCARESTREAM = Carestream,\nESAOTE = Esaote,\nFRESENIUS = Fresenius Kabi,\nFUJI = Fuji,\nGE = General Electric Healthcare,\nGUERBET = Guerbet,\nHOLOGIC = Hologic,\nIMS = IMS Giotto,\nMETALTRONICA = Metaltronica,\nPHILLIPS = Phillips Healthcare,\nPLANMED = Planmed,\nSIEMENS = Siemens Helthineers,\nUNITED = Inited Imaging,\nUNK = unknown}",
           "possible_data_source": "Diagnosis image metadata",
           "observations_comments": "",
           "examples": "",
@@ -952,16 +1000,35 @@
           }
         },
         {
-          "label": "breast_density_cd",
-          "description": "Breast density as assessed using the image test",
+          "label": "image_quality",
+          "description": "Image quality as assessed by the radiologist",
           "standard_classification": "",
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
-          "characteristic": "Calculated",
+          "requirement_level": "Recommended",
+          "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = unknown, '1' = ACRa, '2' = ACRb, '3' = ACRc, '4' = ACRd}",
+          "transformations_from_origin": "{0 = Not specified\n1 = Excellent\n2 = Acceptable\n3 = Inadequate/Repeat}",
+          "possible_data_source": "Radiologist report",
+          "observations_comments": "",
+          "examples": "",
+          "catalog": {
+            "filename": "image_quality.csv",
+            "column_name": "code"
+          }
+        },
+        {
+          "label": "breast_density_cd",
+          "description": "Breast density as assessed using the image test, according to ACR classification",
+          "standard_classification": "",
+          "format": "String",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Recommended",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{'U' = unknown, 'A' = ACRa, 'B' = ACRb, 'C' = ACRc, 'D' = ACRd}",
           "possible_data_source": "Radiology report; Image feature extraction; ",
           "observations_comments": "Categories correspond to: A (almost entirely fatty), B (scattered areas of fibroglandular density), C (heterogenous dense), and D (extremely dense). A and B are considered fatty; while C and D are considered dense. The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
@@ -977,8 +1044,8 @@
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
-          "characteristic": "Calculated",
+          "requirement_level": "Recommended",
+          "characteristic": "Observed",
           "catalog_bl": true,
           "transformations_from_origin": "{'0', '1', '2', '3', '4', '5', '6' = unknown}",
           "possible_data_source": "Radiology report; Image feature extraction",
@@ -990,7 +1057,7 @@
           }
         },
         {
-          "label": "benign_lesion_cd",
+          "label": "benign_findings_cd",
           "description": "Presence of benign breast lesions and non-cancerous grows (i.e., fibrocistic changes, fibroadenomas)",
           "standard_classification": "",
           "format": "Integer",
@@ -1015,7 +1082,7 @@
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": true,
           "transformations_from_origin": "{'0' = none, '1' = unifocal, '2' = multifocal, '3' = multicentric}",
@@ -1029,15 +1096,15 @@
         },
         {
           "label": "lesion_location_cd",
-          "description": "Locator of the lesion following a four-quadrant system or a clock-face method",
+          "description": "Location of the lesion following a four-quadrant system or a clock-face method",
           "standard_classification": "",
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = none, '1' = Upper Outer Quadrant (UOQ), '2' = Upper Inner Quadrant (UIQ), '3' = Lower Outer Quadrant (LOQ), '4' = Lower Inner Quadrant (LIQ), '5' = Axillary tail of breast, '6' = Nipple area complex, '7' = Central portion of breast}",
+          "transformations_from_origin": "{'0' = none, '1' = Upper Outer Quadrant (UOQ), '2' = Upper Inner Quadrant (UIQ), '3' = Lower Outer Quadrant (LOQ), '4' = Lower Inner Quadrant (LIQ), '5' = Axillary tail of breast, '6' = Nipple area complex, '7' = Central portion of breast, '8' = Multiple quadrants/regions involved}",
           "possible_data_source": "Radiology report; Image feature extraction",
           "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
@@ -1048,12 +1115,12 @@
         },
         {
           "label": "lesion_size_nm",
-          "description": "Size of the larger diameter of the lesion detected in centimetres",
+          "description": "Size of the largest diameter of the lesion detected in centimeters",
           "standard_classification": "",
           "format": "Double",
           "type": "Numerical",
           "units": "cm",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "",
@@ -1064,15 +1131,15 @@
         },
         {
           "label": "lesion_mass_shape_cd",
-          "description": "Suspicious features of the detected lesion",
+          "description": "Suspicious features of the detected lesion (if any)",
           "standard_classification": "",
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{'NA', '0' = unknown, '1' = none, '2' = oval, '3' = round, '4' = irregular}",
+          "transformations_from_origin": "{'0' = unknown, '1' = oval, '2' = round, '3' = irregular}",
           "possible_data_source": "Radiology report; Image feature extraction",
           "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
@@ -1083,15 +1150,15 @@
         },
         {
           "label": "lesion_mass_margin_cd",
-          "description": "Edge where the detected lesion meets the surrounding tissue",
+          "description": "Edge where the detected lesion meets the surrounding tissue (if any)",
           "standard_classification": "",
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{'NA', '0' = unknown, '1' = none, '2' = circumscribed, '3' = angular, '4' = microlobulated, '5' = indistinct, '6' = spiculated}",
+          "transformations_from_origin": "{'NA', '0' = unknown, '1' = circumscribed, '2' = angular, '3' = microlobulated, '4' = indistinct, '5' = spiculated}",
           "possible_data_source": "Radiology report; Image feature extraction",
           "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
@@ -1107,7 +1174,7 @@
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": true,
           "transformations_from_origin": "{'NA','0' = none, '1' = skin thickness, '2' = skin retraction, '3' = retraction of the nipple, '4' = architectural distortion, '5' = duct changes, '6' = edema, '7' = absent vascularity, '8' = internal vascularity, '9' = vessels in rim(adjecent sign)}",
@@ -1126,7 +1193,7 @@
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Optional",
+          "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": true,
           "transformations_from_origin": "{'0' = Tx, '1' = T0, '2' = Tis, '3' = T1mi, '4' = T1, '5' = T1a, '6' = T1b, '7' = T1c, '8' = T2, '9' = T3, '10' = T4, '11' = T4a, '12' = T4b, '13' = T4c, '14' = T4d}",
@@ -1145,7 +1212,7 @@
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Optional",
+          "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": true,
           "transformations_from_origin": "{'0' = Nx, '1' = N0, '2' = N0(i+), '3' = N0(mol+), '4' = N1, '5' = N1mi, '6' = N1a, '7' = N1b, '8' = N1c, '9' = N2, '10' = N2a, '11' = N2a, '12' = N2b, '13' = N3, '14' = N3a, '15' = N3b, '16' = N3c}",
@@ -1158,29 +1225,13 @@
           }
         },
         {
-          "label": "n_lesions_nm",
-          "description": "Number of lesions found. 0 if there is not found lesion in the image ",
-          "standard_classification": "",
-          "format": "Integer",
-          "type": "Categorical",
-          "units": "",
-          "requirement_level": "Required",
-          "characteristic": "Observed",
-          "catalog_bl": false,
-          "transformations_from_origin": "",
-          "possible_data_source": "Diagnosis image database, Radiology",
-          "observations_comments": "",
-          "examples": "",
-          "catalog": null
-        },
-        {
           "label": "exploration_result_cd",
           "description": "Result of exploration of the explored breast ",
           "standard_classification": "",
           "format": "Integer",
           "type": "Categorical",
           "units": "",
-          "requirement_level": "Required",
+          "requirement_level": "Recommended",
           "characteristic": "Observed",
           "catalog_bl": true,
           "transformations_from_origin": "{'0' = negative, '1' = suspect, '2' = positive}",
@@ -1207,6 +1258,25 @@
           "observations_comments": "",
           "examples": "",
           "catalog": null
+        },
+        {
+          "label": "breastscan_class",
+          "description": "Image classification within personal history according BreastSCan classes",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Recommended",
+          "characteristic": "Calculated",
+          "catalog_bl": true,
+          "transformations_from_origin": "{0 = Unknown\n1 = Confirmation of negativity of previous exams, without subsequent verification\n2 = Negative at all\n3 = Negative with benign abnormality/ies (no biopsy)\n4 = Suspect --> Negative (with biopsy)\n5 = Negative --> Interval cancer (with biopsy and/or final pathology)\n6 = Suspect --> Positive (with biopsy and/or final pathology)}",
+          "possible_data_source": "",
+          "observations_comments": "",
+          "examples": "",
+          "catalog": {
+            "filename": "breastscan_class.csv",
+            "column_name": "code"
+          }
         }
       ],
       "rules": [],
@@ -1256,12 +1326,27 @@
           "params": {},
           "null_percentage": 0
         },
-        "n_lesions_nm": {
+        "image_reason_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
         },
-        "image_reason_cd": {
+        "breast_density_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "benign_findings_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "breastscan_class": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "image_quality": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1309,8 +1394,8 @@
         },
         {
           "label": "initial_treatment_code_st",
-          "description": "CIE-10-CM code of the initial treatment ",
-          "standard_classification": "CIE-10-CM",
+          "description": "ICD-10-CM code of the initial treatment ",
+          "standard_classification": "ICD-10-CM",
           "format": "String",
           "type": "Categorical",
           "units": "",
@@ -1325,7 +1410,7 @@
         },
         {
           "label": "initial_treatment_date_dt",
-          "description": "Date of the initial treatment",
+          "description": "Date of the initial treatment (YYYY-MM-DD)",
           "standard_classification": "ISO 8601",
           "format": "Date",
           "type": "Date",
@@ -1924,7 +2009,7 @@
           "requirement_level": "Required",
           "characteristic": "Calculated",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = NA, '1' = unknown, '2' = Grade 1, '3' = Grade 2, '4' = Grade 3, '5' = Grade 4, '6' = Grade 5 (pCR)}",
+          "transformations_from_origin": "{'0' = NA,  '1' = Grade 1, '2' = Grade 2, '3' = Grade 3, '4' = Grade 4, '5' = Grade 5 (pCR), '99' = unknown}",
           "possible_data_source": "Biopsy specimen anatomopathology report; anatomopathology image analysis ",
           "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
@@ -1943,7 +2028,7 @@
           "requirement_level": "Required",
           "characteristic": "Calculated",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = NA, '1' = unknown, '2' = RCB-0, '3' = RCB-I, '4' = RCB-II, '5' = RCB-III}",
+          "transformations_from_origin": "{'0' = NA, '1' = RCB-0, '2' = RCB-I, '3' = RCB-II, '4' = RCB-III, '99' = unknown,}",
           "possible_data_source": "Biopsy specimen anatomopathology report; anatomopathology image analysis, diagnosis imaging",
           "observations_comments": "Residual Cancer Burden (RCB) is scoreing system used after neoadjuvant therapy to measure the amount of invasive breast cancer remaining in the breast and lymph nodes. The results are categorised in to four groups: RCB-0 (no residual cancer), RCB-I (minimal residual cancer), RCB-II (moderate residual cancer), RCB-III (extensive residual cancer). The values of the variable must match the 'code' column in the catalog.",
           "examples": "",

@@ -10,9 +10,11 @@ erDiagram
     Integer menopause_cd
     Integer menopause_age_nm
     Integer menopause_cause_cd
-    Integer personal_cancer_history_cd
     Integer breast_cancer_familial_atc_cd
     Integer ovarian_cancer_familial_atc_cd
+    Integer personal_cancer_history_cd
+    Integer previous_breast_cancer_left
+    Integer previous_breast_cancer_right
     Integer surgical_atc_left_breast_cd
     Integer surgical_atc_right_breast_cd
     Boolean hormonal_contraception_use_bl
@@ -49,9 +51,10 @@ erDiagram
     Integer image_reason_cd
     String healthcare_centre_cd
     String manufacturer_id
-    Integer breast_density_cd
+    Integer image_quality
+    String breast_density_cd
     Integer birads_cd
-    Integer benign_lesion_cd
+    Integer benign_findings_cd
     Integer malignant_lesion_cd
     Integer lesion_location_cd
     Double lesion_size_nm
@@ -60,9 +63,9 @@ erDiagram
     Integer lesion_associated_features_cd
     Integer ct_cd
     Integer cn_cd
-    Integer n_lesions_nm
     Integer exploration_result_cd
     String exploration_description_st
+    Integer breastscan_class
   }
   surgical_treatment_ent {
     String woman_id
