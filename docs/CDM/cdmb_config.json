@@ -1,7 +1,7 @@
 {
-  "created_dt": "20260722081912_cdmb",
+  "created_dt": "20260722171243_cdmb",
   "cdmb_version": "2.0.0",
-  "uuid": "03a50929-161a-497f-8792-0a5b8c5d4725",
+  "uuid": "86615bfd-cad1-4330-8467-18a95c343a29",
   "metadata": {
     "project": "BreastScan",
     "funder": "BreastSCan is co-funded under the EU4Health Programme 2021-2027 under grant agreement no. 101219312. Funded by the European Union.",
@@ -851,7 +851,7 @@
           "type": "Categorical",
           "units": "",
           "requirement_level": "Required",
-          "characteristic": "Observed",
+          "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "Apply encription to generate a consistent pseudonym across linked data sources",
           "possible_data_source": "Health insurance database or Health care users' database",
@@ -867,7 +867,7 @@
           "type": "Categorical",
           "units": "",
           "requirement_level": "Required",
-          "characteristic": "Observed",
+          "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "Apply encription to generate a consistent pseudonym across linked data sources",
           "possible_data_source": "Diagnosis image metadata",
@@ -883,7 +883,7 @@
           "type": "Categorical",
           "units": "",
           "requirement_level": "Required",
-          "characteristic": "Observed",
+          "characteristic": "Calculated",
           "catalog_bl": false,
           "transformations_from_origin": "Apply encription to generate a consistent pseudonym across linked data sources",
           "possible_data_source": "Diagnosis image metadata",
@@ -1000,7 +1000,7 @@
           }
         },
         {
-          "label": "image_quality",
+          "label": "image_quality_cd",
           "description": "Image quality as assessed by the radiologist",
           "standard_classification": "",
           "format": "Integer",
@@ -1260,7 +1260,7 @@
           "catalog": null
         },
         {
-          "label": "breastscan_class",
+          "label": "breastscan_class_cd",
           "description": "Image classification within personal history according BreastSCan classes",
           "standard_classification": "",
           "format": "Integer",
@@ -1341,12 +1341,12 @@
           "params": {},
           "null_percentage": 0
         },
-        "breastscan_class": {
+        "image_quality_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
         },
-        "image_quality": {
+        "breastscan_class_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
