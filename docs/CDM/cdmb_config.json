@@ -1,7 +1,7 @@
 {
-  "created_dt": "20260722171243_cdmb",
+  "created_dt": "20260722205624_cdmb",
   "cdmb_version": "2.0.0",
-  "uuid": "86615bfd-cad1-4330-8467-18a95c343a29",
+  "uuid": "8338cc36-b3d6-440b-8e31-779c6f76d98d",
   "metadata": {
     "project": "BreastScan",
     "funder": "BreastSCan is co-funded under the EU4Health Programme 2021-2027 under grant agreement no. 101219312. Funded by the European Union.",
@@ -275,7 +275,7 @@
           }
         },
         {
-          "label": "previous_breast_cancer_left",
+          "label": "previous_breast_cancer_left_cd",
           "description": "Previous breast cancer diagnosed in the left breast",
           "standard_classification": "",
           "format": "Integer",
@@ -294,7 +294,7 @@
           }
         },
         {
-          "label": "previous_breast_cancer_right",
+          "label": "previous_breast_cancer_right_cd",
           "description": "Previous breast cancer diagnosed in the right breast",
           "standard_classification": "",
           "format": "Integer",
@@ -727,6 +727,134 @@
       ],
       "rules": [],
       "synthetic_configuration": {
+        "woman_id": {
+          "dist": "sequence",
+          "params": {
+            "start": "1"
+          },
+          "null_percentage": 0
+        },
+        "birth_date_dt": {
+          "dist": "date_range",
+          "params": {
+            "start": "1941-01-01",
+            "end": "2008-12-31"
+          },
+          "null_percentage": 0
+        },
+        "menarque_age_nm": {
+          "dist": "uniform",
+          "params": {
+            "min": "9",
+            "max": "13"
+          },
+          "null_percentage": 0
+        },
+        "n_full_term_pregnancies_nm": {
+          "dist": "uniform",
+          "params": {
+            "max": "8",
+            "min": "0"
+          },
+          "null_percentage": 0
+        },
+        "age_first_fullterm_pregnancy_nm": {
+          "dist": "uniform",
+          "params": {
+            "min": "18",
+            "max": "35"
+          },
+          "null_percentage": 0
+        },
+        "breastfeeding_bl": {
+          "dist": "categorical_weighted",
+          "params": {
+            "options_weights": "True:80, False:20"
+          },
+          "null_percentage": 0
+        },
+        "breastfeeding_nm": {
+          "dist": "uniform",
+          "params": {
+            "max": "8",
+            "min": "0"
+          },
+          "null_percentage": 0
+        },
+        "menopause_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "3"
+          },
+          "null_percentage": 0
+        },
+        "menopause_age_nm": {
+          "dist": "uniform",
+          "params": {
+            "min": "45",
+            "max": "55"
+          },
+          "null_percentage": 0
+        },
+        "menopause_cause_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "3"
+          },
+          "null_percentage": 0
+        },
+        "breast_cancer_familial_atc_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "3"
+          },
+          "null_percentage": 0
+        },
+        "ovarian_cancer_familial_atc_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "3"
+          },
+          "null_percentage": 0
+        },
+        "personal_cancer_history_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "9"
+          },
+          "null_percentage": 0
+        },
+        "surgical_atc_left_breast_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "5"
+          },
+          "null_percentage": 0
+        },
+        "surgical_atc_right_breast_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "5"
+          },
+          "null_percentage": 0
+        },
+        "hormonal_contraception_use_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "hormonal_contraception_duration_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
         "hormonal_replacement_therapy_bl": {
           "dist": "random_default",
           "params": {},
@@ -742,57 +870,35 @@
           "params": {},
           "null_percentage": 0
         },
+        "height_nm": {
+          "dist": "uniform",
+          "params": {
+            "min": "150",
+            "max": "190"
+          },
+          "null_percentage": 0
+        },
         "weight_nm": {
+          "dist": "uniform",
+          "params": {
+            "min": "45",
+            "max": "100"
+          },
+          "null_percentage": 0
+        },
+        "comorbidity_cardiovascular_disease_bl": {
+          "dist": "categorical_weighted",
+          "params": {
+            "options_weights": "True:10, False:90"
+          },
+          "null_percentage": 0
+        },
+        "comorbidity_hypertension_bl": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
         },
-        "smoking_status_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "age_started_smoking_nm": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "surgical_atc_left_breast_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "surgical_atc_right_breast_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "right_breast_pathology_atc_bl": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "left_mamary_prothesis_bl": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "left_mammaryprosthesis_bl": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "right_mammary_prosthesis_bl": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "exitus_dt": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "residence_local_administrative_unit_cd": {
+        "comorbidity_diabetes_bl": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -802,7 +908,48 @@
           "params": {},
           "null_percentage": 0
         },
-        "birth_date_dt": {
+        "smoking_status_cd": {
+          "dist": "uniform",
+          "params": {
+            "min": "0",
+            "max": "2"
+          },
+          "null_percentage": 0
+        },
+        "age_started_smoking_nm": {
+          "dist": "uniform",
+          "params": {
+            "min": "12",
+            "max": "45"
+          },
+          "null_percentage": 0
+        },
+        "left_breast_pathology_atc_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "right_breast_pathology_atc_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "left_mammary_prosthesis_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "right_mammary_prosthesis_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "residence_local_administrative_unit_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "genetic_testing_brca1_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -822,17 +969,18 @@
           "params": {},
           "null_percentage": 0
         },
-        "personal_cancer_history_cd": {
+        "exitus_dt": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 80
+        },
+        "row_count": 1000,
+        "previous_breast_cancer_left_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
         },
-        "previous_breast_cancer_left": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "previous_breast_cancer_right": {
+        "previous_breast_cancer_right_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1281,17 +1429,100 @@
       ],
       "rules": [],
       "synthetic_configuration": {
-        "exploration_result_cd": {
+        "woman_id": {
+          "dist": "foreign_key",
+          "params": {
+            "target_entity": "women_ent",
+            "target_variable": "woman_id"
+          },
+          "null_percentage": 0
+        },
+        "study_id": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
         },
-        "exploration_description_st": {
+        "series_id": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "image_test_dt": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "image_laterality_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
         },
         "image_type_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "image_reason_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "healthcare_centre_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "manufacturer_id": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "image_quality_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "breast_density_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "birads_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "benign_findings_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "malignant_lesion_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "lesion_location_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "lesion_size_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "lesion_mass_shape_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "lesion_mass_margin_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "lesion_associated_features_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1306,42 +1537,12 @@
           "params": {},
           "null_percentage": 0
         },
-        "manufacturer_id": {
+        "exploration_result_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
         },
-        "study_id": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "series_id": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "image_laterality_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "image_reason_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "breast_density_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "benign_findings_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        },
-        "image_quality_cd": {
+        "exploration_description_st": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1350,7 +1551,8 @@
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
-        }
+        },
+        "row_count": 1000
       }
     },
     {
@@ -1513,7 +1715,40 @@
       ],
       "rules": [],
       "synthetic_configuration": {
-        "number_lymph_nodes_positive_nm": {
+        "woman_id": {
+          "dist": "foreign_key",
+          "params": {
+            "target_entity": "women_ent",
+            "target_variable": "woman_id"
+          },
+          "null_percentage": 0
+        },
+        "initial_treatment_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "initial_treatment_code_st": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "initial_treatment_date_dt": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "surgical_intervention_type_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "adyuvant_treatment_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "lymphovascular_invasion_bl": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1522,7 +1757,13 @@
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
-        }
+        },
+        "number_lymph_nodes_positive_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "row_count": 1000
       }
     },
     {
@@ -1834,7 +2075,55 @@
       ],
       "rules": [],
       "synthetic_configuration": {
+        "woman_id": {
+          "dist": "foreign_key",
+          "params": {
+            "target_entity": "women_ent",
+            "target_variable": "woman_id"
+          },
+          "null_percentage": 0
+        },
+        "biopsy_dt": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "procedure_type_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "tumor_histotype_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "estrogen_receptors_perc_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "progesterone_receptors_perc_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "her2_ihc_status_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
         "her2_fish_positive_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "ki67_perc_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "intrinsic_subtype_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1844,11 +2133,37 @@
           "params": {},
           "null_percentage": 0
         },
-        "her2_ihc_status_bl": {
+        "tumor_grade_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
-        }
+        },
+        "tumor_stage_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "tumor_type_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "tumor_initial_t_stage_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "tumor_initial_n_stage_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "staging_cmetastasis_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "row_count": 1000
       }
     },
     {
@@ -1957,7 +2272,15 @@
       ],
       "rules": [],
       "synthetic_configuration": {
-        "neoadjuvant_therapy_duration_nm": {
+        "woman_id": {
+          "dist": "foreign_key",
+          "params": {
+            "target_entity": "women_ent",
+            "target_variable": "woman_id"
+          },
+          "null_percentage": 0
+        },
+        "neoadjuvant_therapy_drug_atc_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1967,7 +2290,7 @@
           "params": {},
           "null_percentage": 0
         },
-        "cumulative_drug_dosage_nm": {
+        "neoadjuvant_therapy_duration_nm": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -1976,7 +2299,13 @@
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
-        }
+        },
+        "cumulative_drug_dosage_nm": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "row_count": 1000
       }
     },
     {
@@ -2163,7 +2492,62 @@
         }
       ],
       "rules": [],
-      "synthetic_configuration": {}
+      "synthetic_configuration": {
+        "woman_id": {
+          "dist": "foreign_key",
+          "params": {
+            "target_entity": "women_ent",
+            "target_variable": "woman_id"
+          },
+          "null_percentage": 0
+        },
+        "neoadjuvant_therapy_response_mp_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "neoadjuvant_therapy_response_rcb_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "ypt_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "ypn_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "ypm_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "recurrence_date_dt": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "recurrence_bl": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "recurrence_site_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "last_followup_contact_dt": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "row_count": 1000
+      }
     }
   ],
   "relationships": [
