@@ -1,7 +1,7 @@
 {
-  "created_dt": "20260722205624_cdmb",
+  "created_dt": "20260727082844_cdmb",
   "cdmb_version": "2.0.0",
-  "uuid": "8338cc36-b3d6-440b-8e31-779c6f76d98d",
+  "uuid": "d8724ec8-0572-4a85-9f3d-115cd2857a8b",
   "metadata": {
     "project": "BreastScan",
     "funder": "BreastSCan is co-funded under the EU4Health Programme 2021-2027 under grant agreement no. 101219312. Funded by the European Union.",
@@ -9,7 +9,7 @@
     "work_package": "WP4",
     "use_case": "breast_screening_cancer_prediction",
     "document": "Common Data Model",
-    "version_sem": "0.0.8",
+    "version_sem": "0.0.9",
     "authors": [
       {
         "name": "HULAFE",
@@ -32,7 +32,7 @@
       "image analysis"
     ],
     "description": "Study of breast cancer diagnosed during routine mammogram screenings including interval cancer. ",
-    "notes": "Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Health and Digital Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. \n0.0.2 Minor typos in some variable names have been corrected. Catalogs have been added and minor errors in the 'transformations_from_origin' column have been corrected.\n0.0.3 Added Description, Authors, and several variables added in several Entities. \n0.0.4 Added logic 'women_id > studio_id > serie_id' to 'diagnosis_image_ent'. Deleted variables with laterality notion as it is included in the 'serie_id'. Updated NUTS catalogue to delete spaces within variable labels. Corrected variables {'image_type_cd', 'ct_cd', 'cn_cd'} to format 'Integer', as indicated by their catalogue (i.e., data dictionary). \n0.0.5 Updated 'diagnosis_image_ent' to 'dcm_studies_metadata'. Added 'manufacturer_id' to 'dcm_studies_metadata'. \n0.0.6 changed 'diagnosis_image_ent' to 'dicom_series_ent'\n0.0.7 Corrections in model from feedback. \n   Updated cohort definition\n   Fixed some mispelled variable names\n   Added DBT and CEM image type to catalog\n   manufacturer_id as coded field based on catalog\n   lesion_laterality --> image_laterality\n   n_examinations_nm --> n_lesion_nm\n   added personal_cancer_history_cd\n   added image / contact reason (image_reason_cd)",
+    "notes": "Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Health and Digital Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. \n0.0.2 Minor typos in some variable names have been corrected. Catalogs have been added and minor errors in the 'transformations_from_origin' column have been corrected.\n0.0.3 Added Description, Authors, and several variables added in several Entities. \n0.0.4 Added logic 'women_id > studio_id > serie_id' to 'diagnosis_image_ent'. Deleted variables with laterality notion as it is included in the 'serie_id'. Updated NUTS catalogue to delete spaces within variable labels. Corrected variables {'image_type_cd', 'ct_cd', 'cn_cd'} to format 'Integer', as indicated by their catalogue (i.e., data dictionary). \n0.0.5 Updated 'diagnosis_image_ent' to 'dcm_studies_metadata'. Added 'manufacturer_id' to 'dcm_studies_metadata'. \n0.0.6 changed 'diagnosis_image_ent' to 'dicom_series_ent'\n0.0.7 Corrections in model from feedback. \n   Updated cohort definition\n   Fixed some mispelled variable names\n   Added DBT and CEM image type to catalog\n   manufacturer_id as coded field based on catalog\n   lesion_laterality --> image_laterality\n   n_examinations_nm --> n_lesion_nm\n   added personal_cancer_history_cd\n   added image / contact reason (image_reason_cd)\n0.0.8\n   Some variable name changes\n      benign_lesions -> benign_findings\n   Some change in the order of variables, grouping concepts \n   Added previous_breast_cancer\n   Added image_quality_cd (normalized) \n   Breastscan_class_cd as calculated field\n   Number_lesions has been deleted\n   Lesion_location includes “multiple quadrants\n0.0.9\n   Added \"ethnicity\" in women entity\n   Minor corrections: typos and some duplicated entries in catalogs\n",
     "spatial_coverage": "Europe",
     "license": "CC BY 4.0 https://creativecommons.org/licenses/by/4.0/"
   },
@@ -693,7 +693,7 @@
           "catalog": null
         },
         {
-          "label": "genetic_testing_check2_cd",
+          "label": "genetic_testing_chek2_cd",
           "description": "Genetic testing: CHECK2",
           "standard_classification": "",
           "format": "Integer",
@@ -723,6 +723,25 @@
           "observations_comments": "",
           "examples": "",
           "catalog": null
+        },
+        {
+          "label": "ethnicity_cd",
+          "description": "Ethnic origin of the woman",
+          "standard_classification": "",
+          "format": "Integer",
+          "type": "Categorical",
+          "units": "",
+          "requirement_level": "Recommended",
+          "characteristic": "Observed",
+          "catalog_bl": true,
+          "transformations_from_origin": "{1 = White, 2 = Black, 3 = Asian, 4 = Middle East/North Africa, 5 = Latinoamerican, 7 = Mixed, 8 = Other, 9 = Unknown}",
+          "possible_data_source": "Insurers database or health care users' database",
+          "observations_comments": "",
+          "examples": "",
+          "catalog": {
+            "filename": "ethnicity_cd.csv",
+            "column_name": "code"
+          }
         }
       ],
       "rules": [],
@@ -827,6 +846,16 @@
             "min": "0",
             "max": "9"
           },
+          "null_percentage": 0
+        },
+        "previous_breast_cancer_left_cd": {
+          "dist": "random_default",
+          "params": {},
+          "null_percentage": 0
+        },
+        "previous_breast_cancer_right_cd": {
+          "dist": "random_default",
+          "params": {},
           "null_percentage": 0
         },
         "surgical_atc_left_breast_cd": {
@@ -964,7 +993,7 @@
           "params": {},
           "null_percentage": 0
         },
-        "genetic_testing_check2_cd": {
+        "genetic_testing_chek2_cd": {
           "dist": "random_default",
           "params": {},
           "null_percentage": 0
@@ -974,17 +1003,14 @@
           "params": {},
           "null_percentage": 80
         },
-        "row_count": 1000,
-        "previous_breast_cancer_left_cd": {
-          "dist": "random_default",
-          "params": {},
+        "ethnicity_cd": {
+          "dist": "categorical_weighted",
+          "params": {
+            "options_weights": "1:85, 2:5, 3:4, 4:3, 5:1, 6:1, 9:1"
+          },
           "null_percentage": 0
         },
-        "previous_breast_cancer_right_cd": {
-          "dist": "random_default",
-          "params": {},
-          "null_percentage": 0
-        }
+        "row_count": 1000
       }
     },
     {
@@ -1103,7 +1129,7 @@
           "requirement_level": "Required",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{1 = Screening,\n2 = Recall for screening,\n3 = Clinical/referred with symptoms}",
+          "transformations_from_origin": "{1 = Organized screening,\n2 = Spontaneous screening,\n3 = High risk screening,\n4 = Recall for screening,\n5 = Clinical/referred with symptoms}",
           "possible_data_source": "Electronic Health Record  / healthcare center",
           "observations_comments": "",
           "examples": "",
@@ -1219,7 +1245,7 @@
           "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
           "catalog": {
-            "filename": "benign_lesion_cd_catalog.csv",
+            "filename": "benign_findings_cd_catalog.csv",
             "column_name": "code"
           }
         },
@@ -1363,7 +1389,7 @@
           "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = Nx, '1' = N0, '2' = N0(i+), '3' = N0(mol+), '4' = N1, '5' = N1mi, '6' = N1a, '7' = N1b, '8' = N1c, '9' = N2, '10' = N2a, '11' = N2a, '12' = N2b, '13' = N3, '14' = N3a, '15' = N3b, '16' = N3c}",
+          "transformations_from_origin": "{'0' = Nx, '1' = N0, '2' = N0(i+), '3' = N0(mol+), '4' = N1, '5' = N1mi, '6' = N1a, '7' = N1b, '8' = N1c, '9' = N2, '10' = N2a,  '11' = N2b, '12' = N3, '13' = N3a, '14' = N3b, '15' = N3c}",
           "possible_data_source": "Tumor stage surgical valoration",
           "observations_comments": "",
           "examples": "",
@@ -1417,7 +1443,7 @@
           "requirement_level": "Recommended",
           "characteristic": "Calculated",
           "catalog_bl": true,
-          "transformations_from_origin": "{0 = Unknown\n1 = Confirmation of negativity of previous exams, without subsequent verification\n2 = Negative at all\n3 = Negative with benign abnormality/ies (no biopsy)\n4 = Suspect --> Negative (with biopsy)\n5 = Negative --> Interval cancer (with biopsy and/or final pathology)\n6 = Suspect --> Positive (with biopsy and/or final pathology)}",
+          "transformations_from_origin": "{0 = Unknown\n1 = Confirmation of negativity of previous exams without subsequent verification,\n2 = Negative at all,\n3 = Negative with benign abnormality/ies (no biopsy),\n4 = Suspect --> Negative (with biopsy),\n5 = Negative --> Interval cancer (with biopsy and/or final pathology),\n6 = Suspect --> Positive (with biopsy and/or final pathology)}",
           "possible_data_source": "",
           "observations_comments": "",
           "examples": "",
@@ -2044,12 +2070,12 @@
           "requirement_level": "Required",
           "characteristic": "Observed",
           "catalog_bl": true,
-          "transformations_from_origin": "{'0' = Nx, '1' = N0, '2' = N0(i+), '3' = N0(mol+), '4' = N1, '5' = N1mi, '6' = N1a, '7' = N1b, '8' = N1c, '9' = N2, '10' = N2a, '11' = N2a, '12' = N2b, '13' = N3, '14' = N3a, '15' = N3b, '16' = N3c}",
+          "transformations_from_origin": "{'0' = Nx, '1' = N0, '2' = N0(i+), '3' = N0(mol+), '4' = N1, '5' = N1mi, '6' = N1a, '7' = N1b, '8' = N1c, '9' = N2, '10' = N2a, '11' = N2b, '12' = N3, '13' = N3a, '14' = N3b, '15' = N3c}",
           "possible_data_source": "Tumor extension study, diagnostic imaging, anatomopathology report",
           "observations_comments": "The values of the variable must match the 'code' column in the catalog.",
           "examples": "",
           "catalog": {
-            "filename": "tumor_initial_n_stage_cd_catalog.csv",
+            "filename": "cn_cd_catalog.csv",
             "column_name": "code"
           }
         },
