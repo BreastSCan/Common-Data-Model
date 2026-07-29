@@ -3,7 +3,9 @@ import duckdb
 import pandas as pd
 import gzip
 import shutil
+import psycopg2
 
+DB_VERSION = 9
 DUCKDB_PATH = "../../inputs/data.duckdb"
 # PG_CONN_STRING = os.environ.get("DATABASE_URL")
 db_user = os.environ.get('POSTGRES_USER')
@@ -16,8 +18,111 @@ PG_CONN_STRING = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_
 OUTPUT_DIR = "../../outputs"
 EXTENSIONS_DIR = "../../../extensions"
 
-def migrate_tables():
 
+def get_postgres_connection():
+    if not PG_CONN_STRING:
+        print("❌ Error: DATABASE_URL environment variable is not set!")
+        raise
+        
+    try:
+        # connect to the PostgreSQL server
+        conn = psycopg2.connect(
+            database = db_name,
+            user = db_user,
+            password = db_password,
+            host = db_host,
+            port = db_port
+        )
+        return conn
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        raise
+
+
+def update_db_version():
+    # connect to the PostgreSQL server
+    conn = get_postgres_connection()    
+    # CREATE A CURSOR USING THE CONNECTION OBJECT
+    cur = conn.cursor()
+    cur.execute(f"UPDATE public.params set intvalue = {DB_VERSION} where param='version';")
+    print('DB version updated')
+    cur.close()
+    conn.commit()
+
+
+def update_model():
+    """ This function creates (if not exist) a table to keep params, among them the DB version number.
+        Checks the actual version, and updates to last version if needed.
+        Current script and DB version is indicated in the DB_VERSION context variable """
+
+    print("--- Starting PostgreSQL Model update ---")
+        
+    """ create tables in the PostgreSQL database"""
+    create_command = """
+        CREATE TABLE IF NOT EXISTS public.params (
+            param varchar NULL,
+            intvalue int4 NULL,
+            strvalue varchar NULL,
+            CONSTRAINT params_pk PRIMARY KEY (param)
+        )
+        """
+
+    try:
+        # connect to the PostgreSQL server
+        conn = get_postgres_connection()
+        version = 0
+
+        cur = conn.cursor()
+        # create table one by one
+        cur.execute(create_command)
+        # close communication with the PostgreSQL database server
+        cur.close()
+        # commit the changes
+        conn.commit()
+
+
+        # CREATE A CURSOR USING THE CONNECTION OBJECT
+        cur = conn.cursor()
+        # EXECUTE THE SQL QUERY
+        cur.execute("SELECT * FROM params where param='version';")
+        rowcount = cur.rowcount
+
+        if rowcount == 1:
+            # FETCH ALL THE ROWS FROM THE CURSOR
+            data = cur.fetchall()
+            # PRINT THE RECORDS
+            version = data[0][1]
+            print(f"Actual DB version is {version}")
+            cur.close()
+            conn.commit()
+        else:
+            cur.execute("INSERT INTO public.params(param, intvalue) values ('version',0);")
+            print('Initiate version control')
+            cur.close()
+            conn.commit()
+
+        if version < DB_VERSION:
+            cur = conn.cursor()
+            print('Updating database model...')
+            for v in range(version + 1, DB_VERSION + 1):
+                cur.execute(open(f"{v}.sql", "r").read())
+                print(f"Updating to DB version {v}")
+            update_db_version()
+            cur.close()
+            conn.commit()
+        else:
+            print('Database is up to date.')
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+
+def migrate_tables():
+    """ This function migrates all the duckdb tables to postgres in an incremental way """
 
     print("--- Starting DuckDB to PostgreSQL Migration ---")
     
@@ -164,4 +269,5 @@ def migrate_tables():
 if __name__ == "__main__":
 
     os.chdir(os.path.dirname(__file__))
+    update_model()
     migrate_tables()

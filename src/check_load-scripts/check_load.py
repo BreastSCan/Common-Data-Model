@@ -264,7 +264,7 @@ def create_entity_table_if_not_exists(entity_name_, entity_variables_, entity_fo
         constraints.append("PRIMARY KEY (woman_id, study_id, series_id)")
         #constraints.append("CONSTRAINT fk_dicom_woman FOREIGN KEY (woman_id) REFERENCES women_ent(woman_id)")
     elif entity_name_ == "surgical_treatment_ent":
-        constraints.append("PRIMARY KEY (woman_id, initial_treatment_date_dt)")
+        constraints.append("PRIMARY KEY (woman_id, initial_treatment_cd, initial_treatment_date_dt)")
         #constraints.append("CONSTRAINT fk_surgical_woman FOREIGN KEY (woman_id) REFERENCES women_ent(woman_id)")
     elif entity_name_ == "pathological_specimen_ent":
         constraints.append("PRIMARY KEY (woman_id, biopsy_dt)")
